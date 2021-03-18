@@ -1,3 +1,7 @@
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker 
+
 sudo docker-compose up -d --build
 sudo docker-compose ps
 
