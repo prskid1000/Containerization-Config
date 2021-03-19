@@ -60,12 +60,38 @@ kubectl -n kube-system get deployment coredns -o yaml |   sed 's/allowPrivilegeE
 kubectl taint nodes --all node-role.kubernetes.io/master
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 
+kubectl apply -f dashboard-adminuser.yaml
+kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
+
+eyJhbGciOiJSUzI1NiIsImtpZCI6ImxRTy1RRER4Q182UEtNZnU5M0Fnel9pTDl3NWhGTUNHOFlET1dRMWlpa2cifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLXA4ZGQ5Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiIxYWQ5MmY2MS01YzhkLTRjZjAtOGU3NS1jN2QwNzcxMTQzYWUiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZXJuZXRlcy1kYXNoYm9hcmQ6YWRtaW4tdXNlciJ9.IVzXNVPqdff6ArGBvhvK-666bTdCHlmbZt-WJPbUsMhuH_PvBMKLljnk7oJgoMspazHgfEicysatkQqKUxvjYeuaFSPfPh2DjDS4-7lCltJBW4JC_RHq5TcU18bopY7ng1Cmd8J-1TGwWjV1ulC8H_HKJXbaz_L-85Vg-5-bgH9Rq1m5F5NX63lWtWdFpIfIZSG-ywwfQfl1EK2zX-RyUx-ondGNkRqILzeIHi38aFbjtu7se9fLlZHS8yG7rG6ITIFi91J6bDHTV3yWioUqkw9Cq9vxwZtsWPaHtAfT1n4681xh6w6gf0wNLsEFwWI8cgJRE0z_-pzyH1XdjOQSbQ
+
+kubectl proxy
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+
 
 kubectl get pods --all-namespaces
 kubectl proxy
 http://localhost:8001/api/v1/namespaces/
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+
+sudo apt install virtualbox virtualbox-ext-pack
+wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+chmod +x minikube-linux-amd64
+sudo mv minikube-linux-amd64 /usr/local/bin/minikube
+
+minikube start
+
+kubectl config view
+~/.minikube/machines/minikube/config.json
+minikube ssh
+sudo su -
+
+minikube stop
+minikube delete
+minikube addons list
+minikube dashboard
+minikube dashboard --url
 
 sudo kubeadm reset
 sudo apt-get purge kubeadm kubectl kubelet kubernetes-cni kube*
