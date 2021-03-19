@@ -39,13 +39,15 @@ spec:
           limits:
             memory: "1024Mi"
             cpu: "500m"
-            
-#NOTE: comment out `volumeMounts` section for configmap and\or secret guide
-        # volumeMounts:
-        # - name: secret-volume
-        #   mountPath: /secrets/
-        # - name: config-volume
-        #   mountPath: /configs/
+        volumeMounts:
+        - name: disk
+          mountPath: /disk
+          
+      volumes:
+      - name: disk
+        hostPath:
+          path: /disk
+
 #NOTE: comment out `volumes` section for configmap and\or secret guide
       # volumes:
       # - name: secret-volume

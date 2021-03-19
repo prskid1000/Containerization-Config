@@ -17,15 +17,17 @@ kubectl describe pod
 kubectl get deploy,po
 kubectl get svc 
 
-kubectl expose pod ssh-ubuntu-7bbc5d5d5f-9dc28 --port=22 --name=ssh-ubuntu-scv-1 --type=NodePort
-kubectl expose pod ssh-ubuntu-7bbc5d5d5f-f8kg7 --port=22 --name=ssh-ubuntu-scv-2 --type=NodePort
+kubectl exec deployment.apps/ssh-ubuntu df /disk
+
+kubectl expose pod ssh-ubuntu-578b77775-8ffsg --port=22 --name=ssh-ubuntu-scv-1 --type=NodePort
+kubectl expose pod ssh-ubuntu-578b77775-x5mww --port=22 --name=ssh-ubuntu-scv-2 --type=NodePort
 kubectl cluster-info
 
 kubectl apply -f ingress.yaml
 kubectl get ingress
 
-ssh root@192.168.43.142 -p 31464
-ssh root@192.168.43.142 -p 30862
+ssh root@192.168.43.142 -p 32515
+ssh root@192.168.43.142 -p 30451
 pass = screencast
 
 sudo nano /etc/hosts

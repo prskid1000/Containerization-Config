@@ -13,7 +13,7 @@ spec:
           service:
             name: ssh-ubuntu-scv-1
             port:
-              number: 31464
+              number: 32515
   - host: "ssh-ubuntu-2.com"
     http:
       paths:
@@ -23,4 +23,4 @@ spec:
           service:
             name: ssh-ubuntu-scv-2
             port:
-              number: 30862
+              number: 30451
