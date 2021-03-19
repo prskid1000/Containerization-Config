@@ -26,8 +26,8 @@ kubectl get svc
 kubectl cluster-info
 kubectl get pods --all-namespaces
 
-ssh root@192.168.43.142 -p 30778
 ssh root@192.168.43.142 -p 32055
+ssh root@192.168.43.142 -p 30778
 pass = 1234
 
 apache2ctl start
@@ -35,14 +35,7 @@ apache2ctl start
 curl http://192.168.43.142:31481
 curl http://192.168.43.142:31001
 
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/baremetal/deploy.yaml
-kubectl get pods -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx
-kubectl apply -f ingress.yaml
-kubectl get ingress
-kubectl -n ingress-nginx get svc
-curl http://192.168.43.142:30598
 
 kubectl delete -f deployment.yaml
-kubectl delete -f ingress.yaml
 kubectl delete svc ssh-ubuntu-scv-1
 kubectl delete svc ssh-ubuntu-scv-2
