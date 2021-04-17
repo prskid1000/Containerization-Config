@@ -1,0 +1,15 @@
+sudo apt-get install redis-tools
+docker pull redis
+sudo docker run -d --name redis-srv -p 6379:6379 redis
+sudo docker exec -it redis-srv bash
+sudo redis-cli -h 127.0.0.1 -p 6379
+nano /etc/redis/redis
+redis-cli
+CONFIG GET CONFIG_SETTING_NAME
+CONFIG SET CONFIG_SETTING_NAME
+set name pnap
+get name
+
+curl --data "key=1256&value=ifcertover" http://localhsot:3001/setitem
+curl --data "key=1256" http://localhost:3001/getitem
+curl --data "key=1256" http://localhost:3001/deleteitem
